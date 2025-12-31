@@ -1,0 +1,141 @@
+@model Frontend.Domain.Entities.Reserva
+@{
+    ViewData["Title"] = "Detalle de Reserva";
+}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h2>Detalle de Reserva #@Model.IdReserva</h2>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- Sección Maestro -->
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5>Información de la Reserva</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>ID Reserva:</strong></div>
+                                <div class="col-md-8">@Model.IdReserva</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Huésped:</strong></div>
+                                <div class="col-md-8">@(Model.Huesped?.Nombre ?? "N/A")</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Estado:</strong></div>
+                                <div class="col-md-8">
+                                    <span class="badge bg-info" id="estadoActual">@(Model.EstadoReserva?.Nombre ?? "N/A")</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Check-in:</strong></div>
+                                <div class="col-md-8">@Model.FechaDesde.ToString("dd/MM/yyyy HH:mm")</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Check-out:</strong></div>
+                                <div class="col-md-8">@Model.FechaHasta.ToString("dd/MM/yyyy HH:mm")</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Personas:</strong></div>
+                                <div class="col-md-8">@Model.CantidadPersonas</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Total:</strong></div>
+                                <div class="col-md-8">
+                                    <h4><span class="badge bg-success" id="totalReserva">₡@Model.Total.ToString("N2")</span></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.MotivoCancelacion))
+                    {
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="alert alert-warning">
+                                    <strong>Motivo de Cancelación:</strong> @Model.MotivoCancelacion
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección Detalle -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5>Habitaciones Asignadas</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-success" id="btnAgregarHabitacion">
+                                <i class="bi bi-plus-circle"></i> Agregar Habitación
+                            </button>
+                        </div>
+                    </div>
+                    <table id="tblHabitaciones" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Noches</th>
+                                <th>Subtotal</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Agregar Habitación -->
+<div class="modal fade" id="modalAgregarHabitacion" tabindex="-1" aria-labelledby="modalAgregarHabitacionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAgregarHabitacionLabel">Agregar Habitación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="habitacionSelect" class="form-label">Habitación Disponible</label>
+                    <select class="form-select" id="habitacionSelect" required>
+                        <option value="">Seleccione...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnConfirmarAgregar">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const idReserva = @Model.IdReserva;
+    </script>
+    <script src="~/js/reservas-detalle.js" asp-append-version="true"></script>
+}

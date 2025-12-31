@@ -1,0 +1,135 @@
+@{
+    ViewData["Title"] = "Huéspedes";
+}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h2>Gestión de Huéspedes</h2>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" id="btnNuevo">
+                <i class="bi bi-plus-circle"></i> Nuevo Huésped
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <table id="tblHuespedes" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Teléfono</th>
+                                <th>Correo</th>
+                                <th>Edad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Create/Edit -->
+<div class="modal fade" id="modalHuesped" tabindex="-1" aria-labelledby="modalHuespedLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalHuespedLabel">Nuevo Huésped</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formHuesped">
+                    <input type="hidden" id="idHuesped" />
+                    
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombre" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="tel" class="form-control" id="telefono" pattern="[0-9]{8}" required />
+                        <small class="form-text text-muted">8 dígitos</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="correo" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="edad" class="form-label">Edad</label>
+                        <input type="number" class="form-control" id="edad" min="18" required />
+                        <small class="form-text text-muted">Mínimo 18 años</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="numeroTarjetaCredito" class="form-label">Tarjeta de Crédito</label>
+                        <input type="text" class="form-control" id="numeroTarjetaCredito" pattern="[0-9]{16}" required />
+                        <small class="form-text text-muted">16 dígitos</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal View -->
+<div class="modal fade" id="modalViewHuesped" tabindex="-1" aria-labelledby="modalViewHuespedLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalViewHuespedLabel">Detalle de Huésped</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>ID:</strong></div>
+                    <div class="col-md-8" id="viewId"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Nombre:</strong></div>
+                    <div class="col-md-8" id="viewNombre"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Teléfono:</strong></div>
+                    <div class="col-md-8" id="viewTelefono"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Correo:</strong></div>
+                    <div class="col-md-8" id="viewCorreo"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Edad:</strong></div>
+                    <div class="col-md-8" id="viewEdad"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Tarjeta:</strong></div>
+                    <div class="col-md-8" id="viewTarjeta"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/huespedes.js" asp-append-version="true"></script>
+}
