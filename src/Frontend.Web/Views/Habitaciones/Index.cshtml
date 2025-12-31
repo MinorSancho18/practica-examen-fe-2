@@ -1,0 +1,143 @@
+@{
+    ViewData["Title"] = "Habitaciones";
+}
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h2>Gestión de Habitaciones</h2>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" id="btnNuevo">
+                <i class="bi bi-plus-circle"></i> Nueva Habitación
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <table id="tblHabitaciones" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Tarifa</th>
+                                <th>Max Personas</th>
+                                <th>Activa</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Create/Edit -->
+<div class="modal fade" id="modalHabitacion" tabindex="-1" aria-labelledby="modalHabitacionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalHabitacionLabel">Nueva Habitación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formHabitacion">
+                    <input type="hidden" id="idHabitacion" />
+                    
+                    <div class="mb-3">
+                        <label for="codigo" class="form-label">Código</label>
+                        <input type="text" class="form-control" id="codigo" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="idTipoHabitacion" class="form-label">Tipo de Habitación</label>
+                        <select class="form-select" id="idTipoHabitacion" required></select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tarifa" class="form-label">Tarifa</label>
+                        <input type="number" step="0.01" class="form-control" id="tarifa" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="maxPersonas" class="form-label">Máximo de Personas</label>
+                        <input type="number" class="form-control" id="maxPersonas" required />
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="activa" />
+                        <label class="form-check-label" for="activa">Activa</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnGuardar">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal View -->
+<div class="modal fade" id="modalViewHabitacion" tabindex="-1" aria-labelledby="modalViewHabitacionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalViewHabitacionLabel">Detalle de Habitación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>ID:</strong></div>
+                    <div class="col-md-8" id="viewId"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Código:</strong></div>
+                    <div class="col-md-8" id="viewCodigo"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Nombre:</strong></div>
+                    <div class="col-md-8" id="viewNombre"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Tipo:</strong></div>
+                    <div class="col-md-8" id="viewTipo"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Tarifa:</strong></div>
+                    <div class="col-md-8" id="viewTarifa"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Max Personas:</strong></div>
+                    <div class="col-md-8" id="viewMaxPersonas"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4"><strong>Activa:</strong></div>
+                    <div class="col-md-8" id="viewActiva"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/habitaciones.js" asp-append-version="true"></script>
+}
